@@ -1,4 +1,5 @@
 
+
 import datetime
 
 products = [
@@ -24,12 +25,50 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # Products based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-product_id = input("Please input a product identifier, or 'Done' if there are no more items: ")
+product_ids = []
 
-print("THE PRODUCT IDENTIFIER IS: ", product_id)
+while True: #creates infinite loop because True always evaluates as True.
+    product_id = input("Please input a product identifier, or 'Done' if there are no more items: ")
+    if product_id == "DONE":
+        break
+    else:
+        product_ids.append(int(product_id))
+        #product_ids.append(product_id)
+        #print("Outside the loop! THE PRODUCT IDENTIFIER IS: ", product_ids)
 
-#while True:
-#    product_id = input("Please input a product identifier, or 'Done' if there are no more items: ")
-#    if product_id == 'done':
-#        print("Thanks for shopping!")
-#    else: print(product_id)
+def lookup_product_by_id(product_id):
+    matching_products = [product for product in products if product["id"] == product_id]
+    return matching_products[0]
+
+running_total = 0
+
+print("-------------------------------")
+print("WARREN'S GROCERY STORE")
+print("-------------------------------")
+print("Website:  www.wgroceries.com")
+print("Phone:  1.800.haz.food")
+print("Checkout Time: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+print("-------------------------------")
+print("Shopping Cart Items:")
+for product_id in product_ids:
+    product = lookup_product_by_id(product_id)
+    running_total += product["price"]
+    price_usd = ' (${0:.2f})'.format(product["price"])
+    print(" + " + product["name"] + price_usd)
+
+print("-------------------------------")
+print("Subtotal:", '${0:.2f}'.format(running_total))
+tax = running_total * 0.08875
+print("Plus NYC Sales Tax (8.875%):", '${0:.2f}'.format(tax))
+total = running_total + tax
+print("Total:", '${0:.2f}'.format(total))
+
+#print("Subtotal:", '${0:.2f}'.format(product["price"])
+#tax = running_total * 0.8875
+#print("Add NYC Sales Tax (8.875%):", '${0:.2f}'.format(tax))
+#total = running_total + tax
+#print("Total:", '${0:.2f}'.format(total))
+
+print("-------------------------------")
+print("Thanks for your business! Please come again.")
