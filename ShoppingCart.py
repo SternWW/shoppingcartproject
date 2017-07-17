@@ -28,7 +28,7 @@ products = [
 product_ids = []
 
 while True: #creates infinite loop because True always evaluates as True.
-    product_id = input("Please input a product identifier, or 'Done' if there are no more items: ")
+    product_id = input("Please input a product identifier, or 'DONE' if there are no more items: ")
     if product_id == "DONE":
         break
     else:
